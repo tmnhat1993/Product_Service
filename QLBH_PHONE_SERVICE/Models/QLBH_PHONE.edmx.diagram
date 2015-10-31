@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ae3946a53d324e4792296594e764ed46" Name="Diagram1">
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.export_bill" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.export_bill_detail" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.import_bill" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.import_bill_detail" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.manufacturer" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.product" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.role" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.save" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.sysdiagram" Width="1.5" PointX="5.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBH_PHONE_Model.user" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_export_bill_detail_export_bill" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_export_bill_user" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_export_bill_detail_product" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_import_bill_detail_import_bill" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_import_bill_manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_import_bill_detail_product" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_product_manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_product_save" ManuallyRouted="false" />
+        <AssociationConnector Association="QLBH_PHONE_Model.FK_user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

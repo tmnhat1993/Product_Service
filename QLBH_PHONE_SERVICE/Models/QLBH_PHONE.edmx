@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLBH_PHONE_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="export_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="export_bill_detail">
+          <Key>
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="id_export_bill" />
+          </Key>
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="id_export_bill" Type="int" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="import_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="id_manufacturer" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="import_bill_detail">
+          <Key>
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="id_import_bill" />
+          </Key>
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="id_import_bill" Type="int" Nullable="false" />
+          <Property Name="purchase_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="manufacturer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_manufacturer" Type="int" Nullable="false" />
+          <Property Name="id_save" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="product_info" Type="ntext" Nullable="false" />
+          <Property Name="sale_price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="number" Type="int" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="add_role" Type="tinyint" Nullable="false" />
+          <Property Name="read_role" Type="tinyint" Nullable="false" />
+          <Property Name="delete_role" Type="tinyint" Nullable="false" />
+          <Property Name="update_role" Type="tinyint" Nullable="false" />
+          <Property Name="describe" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="save">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="percent_save" Type="int" Nullable="false" />
+          <Property Name="content_save" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_export_bill_detail_export_bill">
+          <End Role="export_bill" Type="Self.export_bill" Multiplicity="1" />
+          <End Role="export_bill_detail" Type="Self.export_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="export_bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill_detail">
+              <PropertyRef Name="id_export_bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_export_bill_detail_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="export_bill_detail" Type="Self.export_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill_detail">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_export_bill_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="export_bill" Type="Self.export_bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_detail_import_bill">
+          <End Role="import_bill" Type="Self.import_bill" Multiplicity="1" />
+          <End Role="import_bill_detail" Type="Self.import_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="import_bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill_detail">
+              <PropertyRef Name="id_import_bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_detail_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="import_bill_detail" Type="Self.import_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill_detail">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="import_bill" Type="Self.import_bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_save">
+          <End Role="save" Type="Self.save" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="save">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_save" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="QLBH_PHONE_ModelStoreContainer">
+          <EntitySet Name="export_bill" EntityType="Self.export_bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="export_bill_detail" EntityType="Self.export_bill_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="import_bill" EntityType="Self.import_bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="import_bill_detail" EntityType="Self.import_bill_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="manufacturer" EntityType="Self.manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="save" EntityType="Self.save" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_export_bill_detail_export_bill" Association="Self.FK_export_bill_detail_export_bill">
+            <End Role="export_bill" EntitySet="export_bill" />
+            <End Role="export_bill_detail" EntitySet="export_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_export_bill_detail_product" Association="Self.FK_export_bill_detail_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="export_bill_detail" EntitySet="export_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_export_bill_user" Association="Self.FK_export_bill_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="export_bill" EntitySet="export_bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_detail_import_bill" Association="Self.FK_import_bill_detail_import_bill">
+            <End Role="import_bill" EntitySet="import_bill" />
+            <End Role="import_bill_detail" EntitySet="import_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_detail_product" Association="Self.FK_import_bill_detail_product">
+            <End Role="product" EntitySet="product" />
+            <End Role="import_bill_detail" EntitySet="import_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_manufacturer" Association="Self.FK_import_bill_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturer" />
+            <End Role="import_bill" EntitySet="import_bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_manufacturer" Association="Self.FK_product_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturer" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_save" Association="Self.FK_product_save">
+            <End Role="save" EntitySet="save" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_role" Association="Self.FK_user_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLBH_PHONE_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="export_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="export_bill_detail" Relationship="Self.FK_export_bill_detail_export_bill" FromRole="export_bill" ToRole="export_bill_detail" />
+          <NavigationProperty Name="user" Relationship="Self.FK_export_bill_user" FromRole="export_bill" ToRole="user" />
+        </EntityType>
+        <EntityType Name="export_bill_detail">
+          <Key>
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="id_export_bill" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="id_export_bill" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="export_bill" Relationship="Self.FK_export_bill_detail_export_bill" FromRole="export_bill_detail" ToRole="export_bill" />
+          <NavigationProperty Name="product" Relationship="Self.FK_export_bill_detail_product" FromRole="export_bill_detail" ToRole="product" />
+        </EntityType>
+        <EntityType Name="import_bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_manufacturer" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="import_bill_detail" Relationship="Self.FK_import_bill_detail_import_bill" FromRole="import_bill" ToRole="import_bill_detail" />
+          <NavigationProperty Name="manufacturer" Relationship="Self.FK_import_bill_manufacturer" FromRole="import_bill" ToRole="manufacturer" />
+        </EntityType>
+        <EntityType Name="import_bill_detail">
+          <Key>
+            <PropertyRef Name="id_product" />
+            <PropertyRef Name="id_import_bill" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="id_import_bill" Type="Int32" Nullable="false" />
+          <Property Name="purchase_price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="import_bill" Relationship="Self.FK_import_bill_detail_import_bill" FromRole="import_bill_detail" ToRole="import_bill" />
+          <NavigationProperty Name="product" Relationship="Self.FK_import_bill_detail_product" FromRole="import_bill_detail" ToRole="product" />
+        </EntityType>
+        <EntityType Name="manufacturer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="import_bill" Relationship="Self.FK_import_bill_manufacturer" FromRole="manufacturer" ToRole="import_bill" />
+          <NavigationProperty Name="products" Relationship="Self.FK_product_manufacturer" FromRole="manufacturer" ToRole="product" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_manufacturer" Type="Int32" Nullable="false" />
+          <Property Name="id_save" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sale_price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="export_bill_detail" Relationship="Self.FK_export_bill_detail_product" FromRole="product" ToRole="export_bill_detail" />
+          <NavigationProperty Name="import_bill_detail" Relationship="Self.FK_import_bill_detail_product" FromRole="product" ToRole="import_bill_detail" />
+          <NavigationProperty Name="manufacturer" Relationship="Self.FK_product_manufacturer" FromRole="product" ToRole="manufacturer" />
+          <NavigationProperty Name="save" Relationship="Self.FK_product_save" FromRole="product" ToRole="save" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="add_role" Type="Byte" Nullable="false" />
+          <Property Name="read_role" Type="Byte" Nullable="false" />
+          <Property Name="delete_role" Type="Byte" Nullable="false" />
+          <Property Name="update_role" Type="Byte" Nullable="false" />
+          <Property Name="describe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="Self.FK_user_role" FromRole="role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="save">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="percent_save" Type="Int32" Nullable="false" />
+          <Property Name="content_save" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_product_save" FromRole="save" ToRole="product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="export_bill" Relationship="Self.FK_export_bill_user" FromRole="user" ToRole="export_bill" />
+          <NavigationProperty Name="role" Relationship="Self.FK_user_role" FromRole="user" ToRole="role" />
+        </EntityType>
+        <Association Name="FK_export_bill_detail_export_bill">
+          <End Role="export_bill" Type="Self.export_bill" Multiplicity="1" />
+          <End Role="export_bill_detail" Type="Self.export_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="export_bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill_detail">
+              <PropertyRef Name="id_export_bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_export_bill_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="export_bill" Type="Self.export_bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_export_bill_detail_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="export_bill_detail" Type="Self.export_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="export_bill_detail">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_detail_import_bill">
+          <End Role="import_bill" Type="Self.import_bill" Multiplicity="1" />
+          <End Role="import_bill_detail" Type="Self.import_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="import_bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill_detail">
+              <PropertyRef Name="id_import_bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="import_bill" Type="Self.import_bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_import_bill_detail_product">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="import_bill_detail" Type="Self.import_bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="import_bill_detail">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_manufacturer">
+          <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manufacturer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_manufacturer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_product_save">
+          <End Role="save" Type="Self.save" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="save">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_save" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLBH_PHONE_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="export_bill" EntityType="Self.export_bill" />
+          <EntitySet Name="export_bill_detail" EntityType="Self.export_bill_detail" />
+          <EntitySet Name="import_bill" EntityType="Self.import_bill" />
+          <EntitySet Name="import_bill_detail" EntityType="Self.import_bill_detail" />
+          <EntitySet Name="manufacturers" EntityType="Self.manufacturer" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="saves" EntityType="Self.save" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_export_bill_detail_export_bill" Association="Self.FK_export_bill_detail_export_bill">
+            <End Role="export_bill" EntitySet="export_bill" />
+            <End Role="export_bill_detail" EntitySet="export_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_export_bill_user" Association="Self.FK_export_bill_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="export_bill" EntitySet="export_bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_export_bill_detail_product" Association="Self.FK_export_bill_detail_product">
+            <End Role="product" EntitySet="products" />
+            <End Role="export_bill_detail" EntitySet="export_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_detail_import_bill" Association="Self.FK_import_bill_detail_import_bill">
+            <End Role="import_bill" EntitySet="import_bill" />
+            <End Role="import_bill_detail" EntitySet="import_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_manufacturer" Association="Self.FK_import_bill_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturers" />
+            <End Role="import_bill" EntitySet="import_bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_import_bill_detail_product" Association="Self.FK_import_bill_detail_product">
+            <End Role="product" EntitySet="products" />
+            <End Role="import_bill_detail" EntitySet="import_bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_manufacturer" Association="Self.FK_product_manufacturer">
+            <End Role="manufacturer" EntitySet="manufacturers" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_product_save" Association="Self.FK_product_save">
+            <End Role="save" EntitySet="saves" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_role" Association="Self.FK_user_role">
+            <End Role="role" EntitySet="roles" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QLBH_PHONE_Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QLBH_PHONE_Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLBH_PHONE_ModelStoreContainer" CdmEntityContainer="QLBH_PHONE_Entities">
+          <EntitySetMapping Name="export_bill">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.export_bill">
+              <MappingFragment StoreEntitySet="export_bill">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="export_bill_detail">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.export_bill_detail">
+              <MappingFragment StoreEntitySet="export_bill_detail">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_export_bill" ColumnName="id_export_bill" />
+                <ScalarProperty Name="number" ColumnName="number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="import_bill">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.import_bill">
+              <MappingFragment StoreEntitySet="import_bill">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id_manufacturer" ColumnName="id_manufacturer" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="import_bill_detail">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.import_bill_detail">
+              <MappingFragment StoreEntitySet="import_bill_detail">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_import_bill" ColumnName="id_import_bill" />
+                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
+                <ScalarProperty Name="number" ColumnName="number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="manufacturers">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.manufacturer">
+              <MappingFragment StoreEntitySet="manufacturer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_manufacturer" ColumnName="id_manufacturer" />
+                <ScalarProperty Name="id_save" ColumnName="id_save" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="product_info" ColumnName="product_info" />
+                <ScalarProperty Name="sale_price" ColumnName="sale_price" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="add_role" ColumnName="add_role" />
+                <ScalarProperty Name="read_role" ColumnName="read_role" />
+                <ScalarProperty Name="delete_role" ColumnName="delete_role" />
+                <ScalarProperty Name="update_role" ColumnName="update_role" />
+                <ScalarProperty Name="describe" ColumnName="describe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="saves">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.save">
+              <MappingFragment StoreEntitySet="save">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="percent_save" ColumnName="percent_save" />
+                <ScalarProperty Name="content_save" ColumnName="content_save" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="QLBH_PHONE_Model.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QLBH_PHONE_Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QLBH_PHONE_Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QLBH_PHONE_Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="QLBH_PHONE_Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLBH_PHONE_Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="QLBH_PHONE_Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLBH_PHONE_Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QLBH_PHONE_Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QLBH_PHONE_Model.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
